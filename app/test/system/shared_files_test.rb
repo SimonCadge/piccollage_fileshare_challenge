@@ -5,13 +5,8 @@ class SharedFilesTest < ApplicationSystemTestCase
     @shared_file = shared_files(:expired_cv)
   end
 
-  test "visiting the index" do
-    visit shared_files_url
-    assert_selector "h1", text: "Shared files"
-  end
-
   test "should create shared file" do
-    visit shared_files_url
+    visit welcome_index_url
     click_on "New shared file"
 
     attach_file("shared_file_attached_file", "test/fixtures/files/meme.png")

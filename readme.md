@@ -6,11 +6,11 @@ I now have a very simple app which lets you upload and download files. There is 
 Tests make use of active storage fixtures so we can easily test the file upload/download functionality.  
 Running `rails test:all` will run the Controller, Model and System tests for SharedFiles.  
 
-Expired links are now no longer downloadable.
+Expired links are now no longer downloadable.  
+
+Added a homepage which links to the create new shared file page, made the shared file pages route back to home, and removed the shared files index. The app now meets the minimum requirements for the quiz.
 
 Next steps:  
- - Create homepage which links directly to the shared_files new page.
- - Remove shared_files index so we don't list every file to all users (or just hide it, since the index page is useful for development).
  - Improve UI.
  - Deploy to AWS and integrate with S3.
 

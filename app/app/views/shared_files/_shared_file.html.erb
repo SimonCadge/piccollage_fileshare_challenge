@@ -19,6 +19,10 @@
       <strong>Download File:</strong>
       <%= link_to "Download", rails_blob_path(shared_file.attached_file, disposition: "attachment") %>
     </p>
+    <p>
+      <strong>Sharing Link:</strong>
+      <%= link_to "Copy this link", shared_file_url(shared_file) %>
+    </p>
   <% else %>
     <p>This link has expired and is no longer available to download</p>
   <% end %>

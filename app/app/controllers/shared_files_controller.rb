@@ -1,5 +1,5 @@
 class SharedFilesController < ApplicationController
-  before_action :set_shared_file, only: %i[ show edit destroy ]
+  before_action :set_shared_file, only: %i[ show destroy ]
 
   # GET /shared_files or /shared_files.json
   def index
@@ -41,7 +41,7 @@ class SharedFilesController < ApplicationController
     @shared_file.destroy!
 
     respond_to do |format|
-      format.html { redirect_to shared_files_url, notice: "Shared file was successfully destroyed." }
+      format.html { redirect_to welcome_index_url, notice: "Shared file was successfully destroyed." }
       format.json { head :no_content }
     end
   end

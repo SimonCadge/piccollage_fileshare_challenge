@@ -6,15 +6,6 @@ class SharedFilesControllerTest < ActionDispatch::IntegrationTest
     @active_instructions_file = shared_files(:active_instructions)
   end
 
-  test "should get index" do
-    get shared_files_url
-    assert_response :success
-
-    # Assert both fixtures appear on the page
-    assert_select 'p', /#{@expired_cv_file.id}/
-    assert_select 'p', /#{@active_instructions_file.id}/
-  end
-
   test "should get new" do
     get new_shared_file_url
     assert_response :success
@@ -64,10 +55,6 @@ class SharedFilesControllerTest < ActionDispatch::IntegrationTest
       delete shared_file_url(@expired_cv_file)
     end
 
-    assert_redirected_to shared_files_url
-
-    # Assert that the deleted file no longer appears in the index
-    follow_redirect!
-    assert_select 'p', {count: 0, text: /#{@expired_cv_file.id}/}
+    assert_redirected_to welcome_index_url
   end
 end
