@@ -1,7 +1,8 @@
 # Simon Cadge PicCollage File Sharing Take Home Quiz
 
-Welcome to my PicCollage take home quiz.  
-I now have a very simple app which lets you upload and download files. There is an index at `/shared_files` which lists all uploaded files and has links to the pages where you can create new ones or delete existing ones.  
+Welcome to my PicCollage take home quiz. This is now a fully featured MVP.  
+The homepage at "/" links to the new file upload page, and then once a file has been uploaded you are taken to the page where the user can download the file.  
+There is no way to list all of the files, so unless a user can guess the UUID of a file that someone else has uploaded they shouldn't be able to access it.  
 
 Tests make use of active storage fixtures so we can easily test the file upload/download functionality.  
 Running `rails test:all` will run the Controller, Model and System tests for SharedFiles.  
