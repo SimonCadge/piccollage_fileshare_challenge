@@ -14,9 +14,13 @@
     <%= shared_file.expires_at %>
   </p>
 
-  <p>
-    <strong>Upload File:</strong>
-    <%= link_to "Download", rails_blob_path(shared_file.attached_file, disposition: "attachment") %>
-  </p>
+  <% if is_active(shared_file) %>
+    <p>
+      <strong>Download File:</strong>
+      <%= link_to "Download", rails_blob_path(shared_file.attached_file, disposition: "attachment") %>
+    </p>
+  <% else %>
+    <p>This link has expired and is no longer available to download</p>
+  <% end %>
 
 </div>

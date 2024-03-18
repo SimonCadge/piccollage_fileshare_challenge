@@ -1,9 +1,9 @@
-cv:
+expired_cv:
   name: attached_file
-  record: cv (SharedFile)
-  blob: cv_blob
+  record: expired_cv (SharedFile)
+  blob: expired_cv_blob
 
-instructions:
+active_instructions:
   name: attached_file
-  record: instructions (SharedFile)
-  blob: instructions_blob
+  record: active_instructions (SharedFile)
+  blob: active_instructions_blob

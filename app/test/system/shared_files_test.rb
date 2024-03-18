@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class SharedFilesTest < ApplicationSystemTestCase
   setup do
-    @shared_file = shared_files(:cv)
+    @shared_file = shared_files(:expired_cv)
   end
 
   test "visiting the index" do

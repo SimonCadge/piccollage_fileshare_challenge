@@ -2,7 +2,8 @@ require "test_helper"
 
 class SharedFilesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @shared_file = shared_files(:cv)
+    @expired_cv_file = shared_files(:expired_cv)
+    @active_instructions_file = shared_files(:active_instructions)
   end
 
   test "should get index" do
@@ -10,8 +11,8 @@ class SharedFilesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     # Assert both fixtures appear on the page
-    assert_select 'p', /#{shared_files(:cv).id}/
-    assert_select 'p', /#{shared_files(:instructions).id}/
+    assert_select 'p', /#{@expired_cv_file.id}/
+    assert_select 'p', /#{@active_instructions_file.id}/
   end
 
   test "should get new" do
@@ -42,22 +43,31 @@ class SharedFilesControllerTest < ActionDispatch::IntegrationTest
     assert latest_file.expires_at < Time.now + 11.minutes
   end
 
-  test "should show shared_file" do
-    get shared_file_url(@shared_file)
+  test "should show active shared_file" do
+    get shared_file_url(@active_instructions_file)
     assert_response :success
 
-    assert_select 'p', /#{@shared_file.id}/
+    assert_select 'p', /#{@active_instructions_file.id}/
+    assert_select "a:match('href', ?)", rails_blob_path(@active_instructions_file.attached_file)
+  end
+  
+  test "show expired shared_file should instead show message saying link has expired" do
+    get shared_file_url(@expired_cv_file)
+    assert_response :success
+
+    assert_select 'p', "This link has expired and is no longer available to download"
+    assert_select 'p', {count: 0, text: /#{@active_instructions_file.id}/}
   end
 
   test "should destroy shared_file" do
     assert_difference("SharedFile.count", -1) do
-      delete shared_file_url(@shared_file)
+      delete shared_file_url(@expired_cv_file)
     end
 
     assert_redirected_to shared_files_url
 
     # Assert that the deleted file no longer appears in the index
     follow_redirect!
-    assert_select 'p', {count: 0, text: /#{@shared_file.id}/}
+    assert_select 'p', {count: 0, text: /#{@expired_cv_file.id}/}
   end
 end
