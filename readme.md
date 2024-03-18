@@ -1,8 +1,17 @@
 # Simon Cadge PicCollage File Sharing Take Home Quiz
 
 Welcome to my PicCollage take home quiz.  
-I am just about to start developing, so currently this repository only contains a default ruby on rails application created by running `rails new app --database=postgresql` and a docker compose file to run both the rails app and the postgres database.  
-There are no routes defined other than the standard healthcheck.  
+I now have a very simple app which lets you upload and download files. There is an index at `/shared_files` which lists all uploaded files and has links to the pages where you can create new ones or delete existing ones.  
+
+Tests make use of active storage fixtures so we can easily test the file upload/download functionality.  
+Running `rails test:all` will run the Controller, Model and System tests for SharedFiles.
+
+Next steps:  
+ - Disable links to files if they have expired.
+ - Create homepage which links directly to the shared_files new page.
+ - Remove shared_files index so we don't list every file to all users (or just hide it, since the index page is useful for development).
+ - Improve UI.
+ - Deploy to AWS and integrate with S3.
 
 ### To Run:
  1. Ensure docker desktop / docker engine is running on your system.

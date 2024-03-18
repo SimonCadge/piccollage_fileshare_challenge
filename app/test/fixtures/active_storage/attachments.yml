@@ -1,0 +1,9 @@
+cv:
+  name: attached_file
+  record: cv (SharedFile)
+  blob: cv_blob
+
+instructions:
+  name: attached_file
+  record: instructions (SharedFile)
+  blob: instructions_blob

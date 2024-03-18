@@ -1,0 +1,2 @@
+cv_blob: <%= ActiveStorage::FixtureSet.blob filename: "cv.pdf", service_name: "test_fixtures" %>
+instructions_blob: <%= ActiveStorage::FixtureSet.blob filename: "instructions.pdf", service_name: "test_fixtures" %>

@@ -1,0 +1,9 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @shared_file %>
+
+<div>
+  <%= link_to "Back to shared files", shared_files_path %>
+
+  <%= button_to "Destroy this shared file", @shared_file, method: :delete %>
+</div>

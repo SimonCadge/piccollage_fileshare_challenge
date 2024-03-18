@@ -1,0 +1,22 @@
+<div id="<%= dom_id shared_file %>">
+  <p>
+    <strong>Uuid:</strong>
+    <%= shared_file.id %>
+  </p>
+
+  <p>
+    <strong>Filename:</strong>
+    <%= shared_file.attached_file.filename %>
+  </p>
+
+  <p>
+    <strong>Expires at:</strong>
+    <%= shared_file.expires_at %>
+  </p>
+
+  <p>
+    <strong>Upload File:</strong>
+    <%= link_to "Download", rails_blob_path(shared_file.attached_file, disposition: "attachment") %>
+  </p>
+
+</div>

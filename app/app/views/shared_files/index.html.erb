@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Shared files</h1>
+
+<div id="shared_files">
+  <% @shared_files.each do |shared_file| %>
+    <%= render shared_file %>
+    <p>
+      <%= link_to "Show this shared file", shared_file %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New shared file", new_shared_file_path %>
