@@ -3,6 +3,11 @@
 <h1>Filesharing App</h1>
 
 <p>
+    <strong>Current User: <%= current_user.email %></strong>
+    <%= button_to "Logout", session_path, method: :delete %>
+</p>
+
+<p>
     <strong>Click here to generate a new file sharing link:</strong>
     <%= link_to "New shared file", new_shared_file_path %>
 </p>

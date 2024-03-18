@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>"Please Log in"</h1>
+
+<%= form_with url: session_path do |f| %>
+  <%= f.text_field :email %><br>
+  <%= f.password_field :password %><br>
+  <%= link_to "Sign Up", new_user_path %>
+  <%= f.submit "Sign In!" %>
+<% end %>

@@ -11,7 +11,14 @@ Expired links are now no longer downloadable.
 
 Added a homepage which links to the create new shared file page, made the shared file pages route back to home, and removed the shared files index. The app now meets the minimum requirements for the quiz.
 
+Added user registration and session management. You're now not able to create or access file share links unless you are logged in.  
+Also created a javascript controller using Stimulus to allow you to copy the share link to the clipboard just by pressing a button.  
+Currently there is no connection between a user and the files they have uploaded. My next plan is to list the files that a user has uploaded on their user page and allow them to manually revoke them if they want to.  
+
 Next steps:  
+ - Configure connection between a user and the files they upload.
+ - List the user's files on their user page and allow them to manually revoke them.
+ - Anyone can see any file if they have the link even if they're logged out, but only the author of the file can revoke it.
  - Improve UI.
  - Deploy to AWS and integrate with S3.
 

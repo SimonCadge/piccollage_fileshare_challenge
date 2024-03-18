@@ -14,15 +14,21 @@
     <%= shared_file.expires_at %>
   </p>
 
-  <% if is_active(shared_file) %>
+  <% if shared_file.is_active %>
     <p>
       <strong>Download File:</strong>
       <%= link_to "Download", rails_blob_path(shared_file.attached_file, disposition: "attachment") %>
     </p>
-    <p>
-      <strong>Sharing Link:</strong>
-      <%= link_to "Copy this link", shared_file_url(shared_file) %>
-    </p>
+    <%
+=begin%>
+  The data-controller and data-action parameters inform stimulus how to wire up this button to
+  the javascript clipboard_controller.js file that I have written in app/javascript/controllers/.
+  The clipboard copy() method copies the current url into the user's clipboard.
+<%
+=end%>
+    <div data-controller="clipboard">
+      <button data-action="clipboard#copy">Copy Link to Clipboard</button>
+    </div>
   <% else %>
     <p>This link has expired and is no longer available to download</p>
   <% end %>

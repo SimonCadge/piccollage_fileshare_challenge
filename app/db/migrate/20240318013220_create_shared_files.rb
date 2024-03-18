@@ -4,6 +4,8 @@ class CreateSharedFiles < ActiveRecord::Migration[7.1]
       t.timestamp :expires_at
 
       t.timestamps
+
+      t.index :expires_at
     end
   end
 end

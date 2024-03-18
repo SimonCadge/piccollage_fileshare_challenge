@@ -1,5 +1,5 @@
 class SharedFilesController < ApplicationController
-  before_action :set_shared_file, only: %i[ show destroy ]
+  before_action :set_shared_file, only: [:show ]
 
   # GET /shared_files or /shared_files.json
   def index
