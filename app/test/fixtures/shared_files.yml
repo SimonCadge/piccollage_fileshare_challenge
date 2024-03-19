@@ -2,6 +2,8 @@
 
 expired_cv:
   expires_at: <%= Time.now - 10.minutes %>
+  user: david
 
 active_instructions:
   expires_at: <%= Time.now + 6.minutes %>
+  user: wendy

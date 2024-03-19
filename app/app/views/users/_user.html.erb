@@ -9,4 +9,13 @@
     <%= user.password_digest %>
   </p>
 
+  <div id="shared_files">
+    <% @uploaded_files.each do |shared_file| %>
+      <%= render shared_file %>
+      <p>
+        <%= link_to "Show this shared file", shared_file %>
+      </p>
+    <% end %>
+  </div>
+
 </div>

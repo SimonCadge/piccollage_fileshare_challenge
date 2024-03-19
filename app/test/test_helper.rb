@@ -22,4 +22,14 @@ module ActiveSupport
       delete session_path
     end
   end
+
+  class ActionDispatch::SystemTestCase
+    def log_in_as(user, password)
+      visit session_url
+      fill_in "email", with: user.email
+      fill_in "password", with: password
+      click_on "Sign In!"
+      assert_text user.email
+    end
+  end
 end

@@ -27,8 +27,15 @@
 <%
 =end%>
     <div data-controller="clipboard">
+      <input data-clipboard-target="source" type="text" value=<%= shared_file_url(shared_file) %> readonly hidden>
       <button data-action="clipboard#copy">Copy Link to Clipboard</button>
     </div>
+    <p>
+      <strong></strong>
+      <% if belongs_to_current_user(shared_file) %>
+        <%= button_to "Manually revoke link", shared_file_url(shared_file), method: :patch  %>
+      <% end %>
+    </p>
   <% else %>
     <p>This link has expired and is no longer available to download</p>
   <% end %>

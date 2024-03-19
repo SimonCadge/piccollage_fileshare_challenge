@@ -4,7 +4,8 @@ class SharedFileTest < ActiveSupport::TestCase
   test "can create valid shared file" do
     attached_file = File.open("test/fixtures/files/meme.png")
     expires_at = Time.now + 10.minutes
-    file = SharedFile.new(attached_file: attached_file, expires_at: expires_at)
+    user = users(:david)
+    file = SharedFile.new(attached_file: attached_file, expires_at: expires_at, user: user)
     assert file.valid?
   end
 

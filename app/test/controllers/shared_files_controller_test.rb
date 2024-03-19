@@ -24,10 +24,9 @@ class SharedFilesControllerTest < ActionDispatch::IntegrationTest
       post shared_files_url, params: { shared_file: { attached_file: fixture_file_upload('meme.png', 'png') } }
     end
 
-    latest_file = SharedFile.order("created_at DESC").first
-    
     # Since we're using UUIDs as the id column there is no inherrent ordering of shared files,
     # so to get the last file we sort by most recently created.
+    latest_file = SharedFile.order("created_at DESC").first
     assert_redirected_to shared_file_url(latest_file)
 
     # Assert that the created file now shows up after following the redirect
@@ -59,12 +58,39 @@ class SharedFilesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'p', /#{@active_instructions_file.id}/
     assert_select "a:match('href', ?)", rails_blob_path(@active_instructions_file.attached_file)
   end
+
+  test "option to revoke active shared_file only visible to creator of the file" do
+    get shared_file_url(@active_instructions_file)
+    assert_response :success
+
+    # We're current logged in as david, so shouldn't be able to revoke wendy's file
+    assert_select 'button', {count: 0, text: /Manually revoke link/}
+
+    log_out
+    log_in_as(users(:wendy), "wendy_pass")
+    get shared_file_url(@active_instructions_file)
+    assert_response :success
+
+    # Now we are logged in as wendy, so the option to revoke the link should appear
+    assert_select 'button', /Manually revoke link/
+  end
+
+  test "owner of a file can manually revoke the link if it hasn't already expired" do
+    assert @active_instructions_file.is_active
+
+    log_out
+    log_in_as(users(:wendy), "wendy_pass")
+    patch shared_file_url(@active_instructions_file)
+
+    @active_instructions_file.reload
+    assert_not @active_instructions_file.is_active
+  end
   
-  test "don't give access to file when user is logged out" do
+  test "even guest users can access shared file via link" do
     log_out
 
     get shared_file_url(@active_instructions_file)
-    assert_redirected_to session_path
+    assert_response :success
   end
   
   test "show expired shared_file should instead show message saying link has expired" do

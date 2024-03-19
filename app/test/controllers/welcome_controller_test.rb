@@ -8,4 +8,9 @@ class WelcomeControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "a:match('href', ?)", new_shared_file_path
   end
+
+  test "should redirect to login when logged out" do
+    get welcome_index_url
+    assert_redirected_to session_path
+  end
 end

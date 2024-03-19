@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+    @uploaded_files = SharedFile.where(user: helpers.current_user).all
   end
 
   # GET /users/new
@@ -27,17 +28,6 @@ class UsersController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /users/1 or /users/1.json
-  def destroy
-    helpers.current_user.destroy!
-    session[:user_id] = nil
-
-    respond_to do |format|
-      format.html { redirect_to session_path, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 

@@ -13,12 +13,10 @@ Added a homepage which links to the create new shared file page, made the shared
 
 Added user registration and session management. You're now not able to create or access file share links unless you are logged in.  
 Also created a javascript controller using Stimulus to allow you to copy the share link to the clipboard just by pressing a button.  
-Currently there is no connection between a user and the files they have uploaded. My next plan is to list the files that a user has uploaded on their user page and allow them to manually revoke them if they want to.  
+
+The user page now lists all of the files that user has created. A user can revoke the link to a file if they are the person who originally uploaded it, but if they are just viewing it that option doesn't appear.
 
 Next steps:  
- - Configure connection between a user and the files they upload.
- - List the user's files on their user page and allow them to manually revoke them.
- - Anyone can see any file if they have the link even if they're logged out, but only the author of the file can revoke it.
  - Improve UI.
  - Deploy to AWS and integrate with S3.
 

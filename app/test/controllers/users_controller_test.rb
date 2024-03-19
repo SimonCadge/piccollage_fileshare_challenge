@@ -54,14 +54,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get user_url(@user)
     assert_response :success
   end
-
-  test "should destroy user" do
+  
+  test "user page lists a user's files" do
     log_in_as(@user, "david_pass")
+    get user_url(@user)
+    assert_response :success
 
-    assert_difference("User.count", -1) do
-      delete user_url(@user)
-    end
-
-    assert_redirected_to session_path
+    # Check that the filename of david's file appears on his user page
+    assert_select 'p', /#{shared_files(:expired_cv).attached_file.filename.to_s}/
   end
 end

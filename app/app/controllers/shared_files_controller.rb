@@ -1,5 +1,6 @@
 class SharedFilesController < ApplicationController
-  before_action :set_shared_file, only: [:show ]
+  before_action :set_shared_file, only: [:show, :update ]
+  skip_before_action :require_login, only: [:show ]
 
   # GET /shared_files or /shared_files.json
   def index
@@ -23,7 +24,7 @@ class SharedFilesController < ApplicationController
     #Generate expiration time, set to 10 minutes in the future by default
     expires_at = Time.now + ENV.fetch("LINK_VALID_MINUTES", "10").to_i.minutes
 
-    @shared_file = SharedFile.new(expires_at: expires_at, attached_file: attached_file)
+    @shared_file = SharedFile.new(expires_at: expires_at, attached_file: attached_file, user: helpers.current_user)
 
     respond_to do |format|
       if @shared_file.save
@@ -44,6 +45,13 @@ class SharedFilesController < ApplicationController
       format.html { redirect_to welcome_index_url, notice: "Shared file was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def update
+    if @shared_file.user == helpers.current_user and @shared_file.expires_at >= Time.now
+      @shared_file.update(expires_at: Time.now)
+    end
+    redirect_back(fallback_location: welcome_index_url)
   end
 
   private
