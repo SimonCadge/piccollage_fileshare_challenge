@@ -11,7 +11,7 @@ Expired links are now no longer downloadable.
 
 Added a homepage which links to the create new shared file page, made the shared file pages route back to home, and removed the shared files index. The app now meets the minimum requirements for the quiz.
 
-Added user registration and session management. You're now not able to create or access file share links unless you are logged in.  
+Added user registration and session management. You're now not able to create file share links unless you are logged in.  
 Also created a javascript controller using Stimulus to allow you to copy the share link to the clipboard just by pressing a button.  
 
 The user page now lists all of the files that user has created. A user can revoke the link to a file if they are the person who originally uploaded it, but if they are just viewing it that option doesn't appear.
