@@ -33,7 +33,7 @@ class SharedFilesControllerTest < ActionDispatch::IntegrationTest
 
     # Assert that the created file now shows up after following the redirect
     follow_redirect!
-    assert_select 'p', /meme.png/
+    assert_select 'div', /meme.png/
 
     # Assert that the latest created file has the correct filename
     assert_equal "meme.png", latest_file.attached_file.filename.to_s
@@ -88,7 +88,7 @@ class SharedFilesControllerTest < ActionDispatch::IntegrationTest
     get shared_file_url(@active_instructions_file)
     assert_response :success
 
-    assert_select 'p', /#{@active_instructions_file.id}/
+    assert_select 'div', /#{@active_instructions_file.attached_file.filename.to_s}/
     assert_select "a:match('href', ?)", rails_blob_path(@active_instructions_file.attached_file)
   end
 

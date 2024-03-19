@@ -18,11 +18,19 @@ The user page now lists all of the files that user has created. A user can revok
 
 When creating a link you now have the choice between it being short(10 minutes), long(60 minutes), or forever(won't ever expire).
 
-Next steps:  
- - Improve UI.
- - Deploy to AWS and integrate with S3.
+Added bootstrap and applied a consistent visual style across the whole app. You can now login, logout and reach your user page via links in the navbar.  
 
-### To Run:
+### Screenshots:
+Homepage:  
+![Homepage](image.png)  
+New File Page:  
+![New File Page](image-1.png)  
+User page listing their uploads:  
+![User page](image-2.png)  
+Download page accessed via the share link by a user who isn't logged in:  
+![Download page when signed out](image-3.png)  
+
+### To Run Locally:
  1. Ensure docker desktop / docker engine is running on your system.
  2. Create a .env file in the root directory containing the following variables:
     - DB_PASSWORD='whatever password you like'

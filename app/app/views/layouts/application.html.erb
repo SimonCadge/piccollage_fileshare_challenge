@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>App</title>
+    <title>Fileshare</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <%= favicon_link_tag asset_path('file-share-icon.png') %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="d-flex tertiary">
+    <div class="container min-vh-100 d-flex flex-column p-0 primary">
+      <%= render template: "layouts/navbar" %>
+      <div class="d-flex flex-column flex-grow-1 p-2">
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>

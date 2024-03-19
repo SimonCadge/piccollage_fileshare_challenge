@@ -4,12 +4,12 @@ class SharedFilesController < ApplicationController
   before_action :set_shared_file, only: [:show, :update ]
   skip_before_action :require_login, only: [:show ]
 
-  # GET /shared_files or /shared_files.json
+  # GET /shared_files
   def index
     @shared_files = SharedFile.all
   end
 
-  # GET /shared_files/1 or /shared_files/1.json
+  # GET /shared_files/1
   def show
   end
 
@@ -18,7 +18,7 @@ class SharedFilesController < ApplicationController
     @shared_file = SharedFile.new
   end
 
-  # POST /shared_files or /shared_files.json
+  # POST /shared_files
   def create
     # Get the attached file from the web form
     attached_file = shared_file_params["attached_file"]
@@ -42,25 +42,18 @@ class SharedFilesController < ApplicationController
       identify: false
     )
 
-    respond_to do |format|
-      if @shared_file.save
-        format.html { redirect_to shared_file_url(@shared_file), notice: "Shared file was successfully created." }
-        format.json { render :show, status: :created, location: @shared_file }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @shared_file.errors, status: :unprocessable_entity }
-      end
+    if @shared_file.save
+      redirect_to shared_file_url(@shared_file), notice: "Shared file was successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # DELETE /shared_files/1 or /shared_files/1.json
+  # DELETE /shared_files/1
   def destroy
     @shared_file.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to welcome_index_url, notice: "Shared file was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to welcome_index_url, notice: "Shared file was successfully destroyed."
   end
 
   def update

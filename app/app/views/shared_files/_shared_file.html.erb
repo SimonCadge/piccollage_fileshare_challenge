@@ -1,13 +1,8 @@
 <div id="<%= dom_id shared_file %>">
-  <p>
-    <strong>Uuid:</strong>
-    <%= shared_file.id %>
-  </p>
-
-  <p>
+  <div>
     <strong>Filename:</strong>
     <%= shared_file.attached_file.filename %>
-  </p>
+  </div>
 
   <p>
     <strong>Expires at:</strong>
@@ -17,7 +12,7 @@
   <% if shared_file.is_active %>
     <p>
       <strong>Download File:</strong>
-      <%= link_to "Download", rails_blob_path(shared_file.attached_file, disposition: "attachment") %>
+      <%= link_to "Download", rails_blob_path(shared_file.attached_file, disposition: "attachment"), class: "btn btn-primary" %>
     </p>
     <%
 =begin%>
@@ -26,16 +21,17 @@
   The clipboard copy() method copies the current url into the user's clipboard.
 <%
 =end%>
-    <div data-controller="clipboard">
-      <input data-clipboard-target="source" type="text" value=<%= shared_file_url(shared_file) %> readonly hidden>
-      <button data-action="clipboard#copy">Copy Link to Clipboard</button>
+    <div class="btn-group" role="group">
+      <div data-controller="clipboard">
+        <input data-clipboard-target="source" type="text" value=<%= shared_file_url(shared_file) %> readonly hidden>
+        <button data-action="clipboard#copy" class="btn btn-info">Copy Link to Clipboard</button>
+      </div>
+      <div>
+        <% if belongs_to_current_user(shared_file) %>
+          <%= button_to "Manually revoke link", shared_file_url(shared_file), method: :patch, class: "btn btn-danger" %>
+        <% end %>
+      </div>
     </div>
-    <p>
-      <strong></strong>
-      <% if belongs_to_current_user(shared_file) %>
-        <%= button_to "Manually revoke link", shared_file_url(shared_file), method: :patch  %>
-      <% end %>
-    </p>
   <% else %>
     <p>This link has expired and is no longer available to download</p>
   <% end %>

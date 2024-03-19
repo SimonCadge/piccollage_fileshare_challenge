@@ -11,17 +11,17 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :attached_file, style: "display: block" %>
-    <%= form.file_field :attached_file %>
+  <div class="mb-3">
+      <%= form.label :attached_file, class: "form-label" %>
+      <%= form.file_field :attached_file, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+      <%= form.label :link_type, class: "form-label" %>
+      <%= form.select :link_type, ['short', 'long', 'forever'], {}, {:class => "form-control"} %>
   </div>
 
   <div>
-    <%= form.label :link_type, style: "display: block" %>
-    <%= form.select :link_type, ['short', 'long', 'forever'] %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>

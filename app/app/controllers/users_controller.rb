@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   skip_before_action :require_login, only: [:new, :create]
 
-  # GET /users/1 or /users/1.json
+  # GET /users/1
   def show
-    @uploaded_files = SharedFile.where(user: helpers.current_user).all
+    @uploaded_files = SharedFile.where(user: helpers.current_user).order("created_at DESC").all
   end
 
   # GET /users/new
@@ -15,19 +15,15 @@ class UsersController < ApplicationController
     end
   end
 
-  # POST /users or /users.json
+  # POST /users
   def create
     @user = User.new(user_params)
 
-    respond_to do |format|
-      if @user.save
-        session[:user_id] = @user.id
-        format.html { redirect_to user_url(@user), notice: "User was successfully created." }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.save
+      session[:user_id] = @user.id
+      redirect_to user_url(@user), notice: "User was successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 

@@ -61,6 +61,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     # Check that the filename of david's file appears on his user page
-    assert_select 'p', /#{shared_files(:expired_cv).attached_file.filename.to_s}/
+    assert_select 'div', /#{shared_files(:expired_cv).attached_file.filename.to_s}/
   end
 end

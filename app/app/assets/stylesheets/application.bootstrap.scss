@@ -1,2 +1,23 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+.primary {
+    background-color: #F8EEE7;
+}
+
+.secondary {
+    background-color: #94618E;
+}
+
+.tertiary {
+    background-color: #49274A;
+}
+
+.tertiary-button {
+    background-color: #49274A;
+    color: white;;
+}
+
+.link {
+    color: #49274A;
+}
