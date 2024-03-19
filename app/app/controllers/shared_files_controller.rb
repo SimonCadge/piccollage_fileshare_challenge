@@ -2,6 +2,12 @@ class SharedFilesController < ApplicationController
   before_action :set_shared_file, only: [:show, :update ]
   skip_before_action :require_login, only: [:show ]
 
+  # LINK_TYPE_MAPPING = {
+  #   "short" => ENV.fetch("SHORT_LINK_VALID_MINUTES", "10").to_i.minutes,
+  #   "long" => ENV.fetch("LONG_LINK_VALID_MINUTES", "60").to_i.minutes,
+  #   "forever" => Float::INFINITY.minutes
+  # }
+
   # GET /shared_files or /shared_files.json
   def index
     @shared_files = SharedFile.all
@@ -22,7 +28,14 @@ class SharedFilesController < ApplicationController
     attached_file = shared_file_params["attached_file"]
 
     #Generate expiration time, set to 10 minutes in the future by default
-    expires_at = Time.now + ENV.fetch("LINK_VALID_MINUTES", "10").to_i.minutes
+    case shared_file_params["link_type"]
+    when "short"
+      expires_at = Time.now + ENV.fetch("SHORT_LINK_VALID_MINUTES", "10").to_i.minutes
+    when "long"
+      expires_at = Time.now + ENV.fetch("LONG_LINK_VALID_MINUTES", "60").to_i.minutes
+    when "forever"
+      expires_at = Float::INFINITY
+    end
 
     @shared_file = SharedFile.new(expires_at: expires_at, attached_file: attached_file, user: helpers.current_user)
 
@@ -48,7 +61,7 @@ class SharedFilesController < ApplicationController
   end
 
   def update
-    if @shared_file.user == helpers.current_user and @shared_file.expires_at >= Time.now
+    if @shared_file.user == helpers.current_user and @shared_file.is_active
       @shared_file.update(expires_at: Time.now)
     end
     redirect_back(fallback_location: welcome_index_url)
@@ -62,6 +75,6 @@ class SharedFilesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def shared_file_params
-      params.require(:shared_file).permit(:attached_file)
+      params.require(:shared_file).permit(:attached_file, :link_type)
     end
 end

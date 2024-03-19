@@ -16,6 +16,8 @@ Also created a javascript controller using Stimulus to allow you to copy the sha
 
 The user page now lists all of the files that user has created. A user can revoke the link to a file if they are the person who originally uploaded it, but if they are just viewing it that option doesn't appear.
 
+When creating a link you now have the choice between it being short(10 minutes), long(60 minutes), or forever(won't ever expire).
+
 Next steps:  
  - Improve UI.
  - Deploy to AWS and integrate with S3.

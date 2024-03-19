@@ -21,7 +21,7 @@ class SharedFilesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create shared_file" do
     assert_difference("SharedFile.count") do
-      post shared_files_url, params: { shared_file: { attached_file: fixture_file_upload('meme.png', 'png') } }
+      post shared_files_url, params: { shared_file: { attached_file: fixture_file_upload('meme.png', 'png'), link_type: 'short' } }
     end
 
     # Since we're using UUIDs as the id column there is no inherrent ordering of shared files,
@@ -39,6 +39,33 @@ class SharedFilesControllerTest < ActionDispatch::IntegrationTest
     # Assert expiration time was calculated correctly
     assert latest_file.expires_at > Time.now + 9.minutes
     assert latest_file.expires_at < Time.now + 11.minutes
+  end
+
+  test "can create long link" do
+    assert_difference("SharedFile.count") do
+      post shared_files_url, params: { shared_file: { attached_file: fixture_file_upload('meme.png', 'png'), link_type: 'long' } }
+    end
+
+    # Since we're using UUIDs as the id column there is no inherrent ordering of shared files,
+    # so to get the last file we sort by most recently created.
+    latest_file = SharedFile.order("created_at DESC").first
+    assert_redirected_to shared_file_url(latest_file)
+
+    assert latest_file.expires_at > Time.now + 59.minutes
+    assert latest_file.expires_at < Time.now + 61.minutes
+  end
+
+  test "can create infinite link" do
+    assert_difference("SharedFile.count") do
+      post shared_files_url, params: { shared_file: { attached_file: fixture_file_upload('meme.png', 'png'), link_type: 'forever' } }
+    end
+
+    # Since we're using UUIDs as the id column there is no inherrent ordering of shared files,
+    # so to get the last file we sort by most recently created.
+    latest_file = SharedFile.order("created_at DESC").first
+    assert_redirected_to shared_file_url(latest_file)
+
+    assert latest_file.expires_at == Float::INFINITY
   end
 
   test "can't post new file when logged out" do

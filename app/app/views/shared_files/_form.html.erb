@@ -17,6 +17,11 @@
   </div>
 
   <div>
+    <%= form.label :link_type, style: "display: block" %>
+    <%= form.select :link_type, ['short', 'long', 'forever'] %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
