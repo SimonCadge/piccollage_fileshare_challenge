@@ -28,6 +28,8 @@ class SharedFilesControllerTest < ActionDispatch::IntegrationTest
     # so to get the last file we sort by most recently created.
     latest_file = SharedFile.order("created_at DESC").first
     assert_redirected_to shared_file_url(latest_file)
+    # Should have been placed in the short folder
+    assert latest_file.attached_file.key.start_with?("short")
 
     # Assert that the created file now shows up after following the redirect
     follow_redirect!
@@ -50,6 +52,8 @@ class SharedFilesControllerTest < ActionDispatch::IntegrationTest
     # so to get the last file we sort by most recently created.
     latest_file = SharedFile.order("created_at DESC").first
     assert_redirected_to shared_file_url(latest_file)
+    # Should have been placed in the long folder
+    assert latest_file.attached_file.key.start_with?("long")
 
     assert latest_file.expires_at > Time.now + 59.minutes
     assert latest_file.expires_at < Time.now + 61.minutes
@@ -64,6 +68,8 @@ class SharedFilesControllerTest < ActionDispatch::IntegrationTest
     # so to get the last file we sort by most recently created.
     latest_file = SharedFile.order("created_at DESC").first
     assert_redirected_to shared_file_url(latest_file)
+    # Should have been placed in the forever folder
+    assert latest_file.attached_file.key.start_with?("forever")
 
     assert latest_file.expires_at == Float::INFINITY
   end

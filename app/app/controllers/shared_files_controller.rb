@@ -1,12 +1,8 @@
+require 'securerandom'
+
 class SharedFilesController < ApplicationController
   before_action :set_shared_file, only: [:show, :update ]
   skip_before_action :require_login, only: [:show ]
-
-  # LINK_TYPE_MAPPING = {
-  #   "short" => ENV.fetch("SHORT_LINK_VALID_MINUTES", "10").to_i.minutes,
-  #   "long" => ENV.fetch("LONG_LINK_VALID_MINUTES", "60").to_i.minutes,
-  #   "forever" => Float::INFINITY.minutes
-  # }
 
   # GET /shared_files or /shared_files.json
   def index
@@ -37,7 +33,14 @@ class SharedFilesController < ApplicationController
       expires_at = Float::INFINITY
     end
 
-    @shared_file = SharedFile.new(expires_at: expires_at, attached_file: attached_file, user: helpers.current_user)
+    @shared_file = SharedFile.new(expires_at: expires_at, user: helpers.current_user)
+    @shared_file.attached_file.attach(
+      io: attached_file.to_io,
+      filename: attached_file.original_filename,
+      content_type: attached_file.content_type,
+      key: "#{shared_file_params["link_type"]}/#{SecureRandom.uuid}",
+      identify: false
+    )
 
     respond_to do |format|
       if @shared_file.save
