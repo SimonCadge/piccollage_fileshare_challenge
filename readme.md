@@ -1,24 +1,12 @@
 # Simon Cadge PicCollage File Sharing Take Home Quiz
 
-Welcome to my PicCollage take home quiz. This is now a fully featured MVP.  
-The homepage at "/" links to the new file upload page, and then once a file has been uploaded you are taken to the page where the user can download the file.  
-There is no way to list all of the files, so unless a user can guess the UUID of a file that someone else has uploaded they shouldn't be able to access it.  
+Welcome to my PicCollage take home quiz. My submission provides all of the required features, as well as user registration, the ability to manually revoke links, and a choice of how long the link should remain alive.  
+After logging in Users are directed to the new shared_file page where they can upload a file.  
+Once they have uploaded the file a link is generated which they can copy to the clipboard by clicking on a button. Anyone can access the download page by using that link.  
+On the user's page they can see all of their uploaded files and manually revoke the links of any that are still active, but there isn't any other way to list files, so unless someone can guess a UUID of another file they won't be able to access someone else's data.    
 
 Tests make use of active storage fixtures so we can easily test the file upload/download functionality.  
-Running `rails test:all` will run the Controller, Model and System tests for SharedFiles.  
-
-Expired links are now no longer downloadable.  
-
-Added a homepage which links to the create new shared file page, made the shared file pages route back to home, and removed the shared files index. The app now meets the minimum requirements for the quiz.
-
-Added user registration and session management. You're now not able to create file share links unless you are logged in.  
-Also created a javascript controller using Stimulus to allow you to copy the share link to the clipboard just by pressing a button.  
-
-The user page now lists all of the files that user has created. A user can revoke the link to a file if they are the person who originally uploaded it, but if they are just viewing it that option doesn't appear.
-
-When creating a link you now have the choice between it being short(10 minutes), long(60 minutes), or forever(won't ever expire).
-
-Added bootstrap and applied a consistent visual style across the whole app. You can now login, logout and reach your user page via links in the navbar.  
+Running `rails test:all` will run Controller, Model and System tests.  
 
 ### Screenshots:
 Homepage:  
