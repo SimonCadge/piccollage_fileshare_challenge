@@ -57,7 +57,7 @@ class SharedFilesController < ApplicationController
   end
 
   def update
-    if @shared_file.user == helpers.current_user and @shared_file.is_active
+    if @shared_file.user == helpers.current_user and @shared_file.is_active?
       @shared_file.update(expires_at: Time.now)
     end
     redirect_back(fallback_location: welcome_index_url)

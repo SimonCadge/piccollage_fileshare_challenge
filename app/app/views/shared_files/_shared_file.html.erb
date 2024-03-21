@@ -9,7 +9,7 @@
     <%= shared_file.expires_at %>
   </p>
 
-  <% if shared_file.is_active %>
+  <% if shared_file.is_active? %>
     <p>
       <strong>Download File:</strong>
       <%= link_to "Download", rails_blob_path(shared_file.attached_file, disposition: "attachment"), class: "btn btn-primary" %>
@@ -27,7 +27,7 @@
         <button data-action="clipboard#copy" class="btn btn-info">Copy Link to Clipboard</button>
       </div>
       <div>
-        <% if belongs_to_current_user(shared_file) %>
+        <% if shared_file.belongs_to?(current_user) %>
           <%= button_to "Manually revoke link", shared_file_url(shared_file), method: :patch, class: "btn btn-danger" %>
         <% end %>
       </div>

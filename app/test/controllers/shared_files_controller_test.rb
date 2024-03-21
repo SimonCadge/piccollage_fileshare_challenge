@@ -109,14 +109,14 @@ class SharedFilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "owner of a file can manually revoke the link if it hasn't already expired" do
-    assert @active_instructions_file.is_active
+    assert @active_instructions_file.is_active?
 
     log_out
     log_in_as(users(:wendy), "wendy_pass")
     patch shared_file_url(@active_instructions_file)
 
     @active_instructions_file.reload
-    assert_not @active_instructions_file.is_active
+    assert_not @active_instructions_file.is_active?
   end
   
   test "even guest users can access shared file via link" do
